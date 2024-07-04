@@ -1,9 +1,10 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 // import Button from '../index'
 import { logout } from '../../FetchFunc/fetchUserApi'
 import { useDispatch } from 'react-redux'
-import { isLoggedIn, logout as storeLogout } from '../../store/userSlice'
+import {  logout as storeLogout } from '../../store/userSlice'
 import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 function Logout() {
 
@@ -15,13 +16,14 @@ function Logout() {
     const loggedOut = await logout()
     console.log(loggedOut);
     if (loggedOut) {
-      localStorage.removeItem("user")
-      dispatch(storeLogout())
-      dispatch(isLoggedIn(false))
+      // localStorage.clear("accessToken")
+      // localStorage.clear("refreshToken")
+      const dispatched = dispatch(storeLogout())
       navigate("/")
     }
-
   }
+  
+
   return (
     <button onClick={logoutFunc}>
       Log out

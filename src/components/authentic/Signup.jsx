@@ -3,9 +3,10 @@ import { Input, Button } from '../index'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { fetchLogIn, fetchSignup, getCurrentUser } from '../../FetchFunc/fetchUserApi'
-import { isLoggedIn, login } from '../../store/userSlice'
+import { loginDetails } from '../../store/userSlice'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Cookies from "js-cookie"
 
 
 
@@ -18,20 +19,11 @@ function Signup() {
   const registerDetail = async (data) => {
     try {
       const fetchData = await fetchSignup(data)
-      // console.log(fetchData);
       if (fetchData) {
-        const loginUser = await fetchLogIn({ email: data.username, password: data.password })
-        // console.log(loginUser);
-
-        if (loginUser) {
-          const currentUser = await getCurrentUser()
-
-          if (currentUser) {
-            dispatch(login(currentUser.data.data))
-            localStorage.setItem("user",JSON.stringify(currentUser.data.data))
-            dispatch(isLoggedIn(true))
-            navigate('/')
-          }
+        const dispatched = dispatch(loginDetails(data))
+        const isUser = await dispatched
+        if (isUser.payload.user) {
+          navigate("/")
         }
       }
     } catch (error) {

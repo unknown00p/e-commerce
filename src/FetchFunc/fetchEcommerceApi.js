@@ -85,11 +85,28 @@ async function getAllProducts(params) {
 }
 
 async function getProduct(productId) {
-    console.log(productId);
+    // console.log(productId);
     try {
         const api = `http://localhost:8080/api/v1/ecommerce/products/${productId}`
 
-        return await axios.get(api,{
+        return await axios.get(api,
+            {
+                headers:{
+                    "Content-Type": "application/json",
+                },withCredentials:true
+            }
+        )
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function addToCart(productId,quantity) {
+    try {
+        const api = `http://localhost:8080/api/v1/ecommerce/cart/item/${productId}`
+        return await axios.post(api,{
+            quantity: quantity
+        },{
             headers: {
                 "Content-Type": "application/json",
             },withCredentials:true
@@ -99,4 +116,30 @@ async function getProduct(productId) {
     }
 }
 
-export { getUserProfile, createProducts, createCategory, getCategories, getAllProducts, getProduct }
+async function getUserCart(params) {
+    try {
+        const api = "http://localhost:8080/api/v1/ecommerce/cart"
+        return await axios.get(api,{
+            headers: {
+                "Content-Type": "application/json",
+            },withCredentials:true
+        })
+    } catch (error) {
+        
+    }
+}
+
+async function eCommerceProfile(params) {
+    try {
+        const api = "http://localhost:8080/api/v1/ecommerce/profile"
+        return await axios.get(api,{
+            headers:{
+                "Content-Type": "application/json",
+            },withCredentials:true
+        })
+    } catch (error) {
+        console.log(error);        
+    }
+}
+
+export { eCommerceProfile, getUserProfile, createProducts, createCategory, getCategories, getAllProducts, getProduct, addToCart,getUserCart }

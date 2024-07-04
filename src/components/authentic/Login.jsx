@@ -4,7 +4,8 @@ import {Input,Button} from '../index';
 import { fetchLogIn, getCurrentUser } from '../../FetchFunc/fetchUserApi';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { isLoggedIn, login } from '../../store/userSlice';
+import Cookies from "js-cookie"
+import { loginDetails } from '../../store/userSlice';
 
 function Login() {
   const { handleSubmit, register } = useForm()
@@ -13,22 +14,11 @@ function Login() {
   const [error, setError] = useState(null)
 
   const handelData = async (data) => {
-    // console.log(data.email, data.password);
-    try {
-      const logedIn = await fetchLogIn({ email: data.email, password: data.password })
-      // console.log(logedIn);
-      if (logedIn) {
-        const currentUser = await getCurrentUser()
-
-        console.log(currentUser);
-        dispatch(login(currentUser.data.data))
-        localStorage.setItem("user",JSON.stringify(currentUser.data.data))
-        dispatch(isLoggedIn(true))
-        navigate('/')
+      const dispatched = dispatch(loginDetails(data))
+      const isUser = await dispatched
+      if (isUser.payload.user) {
+        navigate("/")
       }
-    } catch (error) {
-      console.log(error);
-    }
   }
 
   return (
@@ -36,12 +26,12 @@ function Login() {
       <div className='flex shadow-xl flex-col gap-4 bg-[#111827] w-[35%] rounded-md m-auto p-6 justify-center items-center'>
 
         <Input
-          label="Your Email"
+          label="Username"
           type="text"
           className="border-[#c9c9c9] border-2 outline-none rounded-[4px] px-[3px] w-[24rem] h-[2.4rem]"
           labelClass="text-white"
-          placeholder="Name@Unknown.com"
-          {...register("email")}
+          placeholder="Billu bhai"
+          {...register("username")}
         />
 
         <Input

@@ -8,6 +8,8 @@ import Home from "./home/Home.jsx";
 import AddProducts from "./products/AddProducts.jsx";
 import Select from "./formCompo/Select.jsx";
 import Product from "./products/Product.jsx";
+import Category from "./products/Category.jsx";
+// import AllProducts from "./products/AllProduct.jsx"
 
 export {
     Input,
@@ -19,5 +21,7 @@ export {
     Home,
     AddProducts,
     Select,
-    Product
+    Product,
+    Category,
+    // AllProducts
 }

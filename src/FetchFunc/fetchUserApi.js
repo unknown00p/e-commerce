@@ -53,4 +53,4 @@ async function logout() {
     return await axios.post(logoutApi,{},{withCredentials:true})
 }
 
-export { fetchSignup, fetchVerify, fetchLogIn, getCurrentUser, logout };
+export { fetchSignup, fetchVerify,fetchLogIn, getCurrentUser, logout };

@@ -1,78 +1,77 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
-import { Header } from './components'
-import { Outlet } from 'react-router-dom'
 import { getCurrentUser } from './FetchFunc/fetchUserApi'
 import { useDispatch, useSelector } from 'react-redux'
-import { authStore, isLoggedIn, login, logout } from './store/userSlice'
+import { logout } from './store/userSlice'
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Protected from './utils/Protected'
+import { Home, AddProducts } from './components'
+import { AddProducts_page, Login_page, Signup_page } from "./pages/index_page"
+import { Product, Category } from "./components"
+import UnProtected from './utils/UnProtected'
+import {currentUser} from './store/userSlice'
+
+
 
 function App() {
   const dispatch = useDispatch()
-  const [loading, setLoading] = useState(true)
-  // const isUserLocal = localStorage.getItem("user")
-  // const isUser = JSON.parse(isUserLocal)
-  // const [user, setUser] = useState(isUser)
-  const userStatus = useSelector((state) => state.auth.status)
 
 
   async function fetchCurrentUser(params) {
-
     try {
       const currentUser = await getCurrentUser()
-      // console.log(currentUser);
       if (currentUser) {
         return currentUser
       }
     } catch (error) {
       console.log("error in app while getting the current user: ", error);
-    }finally{
-      setLoading(false)
     }
   }
 
 
   useEffect(() => {
     async function fetched(params) {
-      setLoading(true)
 
       const fetchedUser = await fetchCurrentUser()
-      // console.log(fetchedUser.data);
       if (fetchedUser) {
-        // setUser(fetchedUser?.data.data)
-        dispatch(login(fetchedUser?.data.data))
-        dispatch(isLoggedIn(true))
+        // console.log(fetchedUser?.data.data)
+        const CurrentUserData = fetchedUser?.data.data || null
+        dispatch(currentUser(CurrentUserData))
       }
 
-      setLoading(false)
     }
 
-  // console.log(cookieValue);
-      fetched()
 
-    setLoading(false)
+    fetched()
+
+
   }, []);
 
 
+  return (
 
+    <BrowserRouter>
+      <Routes>
+        <Route path="/">
+          <Route element={<Protected />} >
+            <Route index element={<Home />} />
+            <Route path="about" element={<div>about</div>} />
+            <Route path="add-products" element={<AddProducts_page />} />
+            {/* <Route path="shop" element={<Shop />} /> */}
+            <Route path="product/:productId" element={<Product />} />
+            <Route path="category" element={<Category />} />
+            <Route path="login" element={<Login_page />} />
+            <Route path="Signup" element={<Signup_page />} />
+          </Route>
+        </Route>
 
+        {/* <Route element={<UnProtected />}> */}
+          {/* <Route path="login" element={<Login_page />} />
+          <Route path="Signup" element={<Signup_page />} /> */}
+        {/* </Route> */}
+      </Routes>
+    </BrowserRouter>
 
-
-  // return isLoggedIn ? (<>{
-  //   loading ?
-  //     (
-  //       <div>Loading...</div>
-  //     ) : (
-  return <>
-    <Header />
-    <Outlet />
-  </>
-  //     )
-  // }</>): (
-  //   <>
-  //     <Header />
-  //     <Outlet />
-  //   </>
-  // )
+  )
 }
 
 export default App
