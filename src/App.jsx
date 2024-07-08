@@ -8,13 +8,16 @@ import { Home, AddProducts } from './components'
 import { AddProducts_page, Login_page, Signup_page } from "./pages/index_page"
 import { Product, Category } from "./components"
 import UnProtected from './utils/UnProtected'
-import {currentUser} from './store/userSlice'
+import { currentUser } from './store/userSlice'
 
 
 
 function App() {
   const dispatch = useDispatch()
 
+useEffect(() => {
+  
+}, [])
 
   async function fetchCurrentUser(params) {
     try {
@@ -33,11 +36,9 @@ function App() {
 
       const fetchedUser = await fetchCurrentUser()
       if (fetchedUser) {
-        // console.log(fetchedUser?.data.data)
         const CurrentUserData = fetchedUser?.data.data || null
         dispatch(currentUser(CurrentUserData))
       }
-
     }
 
 

@@ -6,8 +6,8 @@ function Profile() {
 
     async function getProfile(params) {
       const profile = await eCommerceProfile()
-      console.log(profile.data.data);
-      setProfile(profile.data.data)
+      // console.log(profile.data.data);
+      setProfile(profile?.data.data)
     }
 
     useEffect(() => {

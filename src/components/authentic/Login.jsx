@@ -16,7 +16,8 @@ function Login() {
   const handelData = async (data) => {
       const dispatched = dispatch(loginDetails(data))
       const isUser = await dispatched
-      if (isUser.payload.user) {
+      // console.log(isUser);
+      if (isUser?.payload.user) {
         navigate("/")
       }
   }

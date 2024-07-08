@@ -1,8 +1,8 @@
-import React,{useEffect} from 'react'
+import React, { useEffect } from 'react'
 // import Button from '../index'
 import { logout } from '../../FetchFunc/fetchUserApi'
 import { useDispatch } from 'react-redux'
-import {  logout as storeLogout } from '../../store/userSlice'
+import { logout as storeLogout } from '../../store/userSlice'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
@@ -10,19 +10,31 @@ function Logout() {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const Token = Cookies.get("Token")
 
+  
   async function logoutFunc(params) {
-    
     const loggedOut = await logout()
-    console.log(loggedOut);
     if (loggedOut) {
-      // localStorage.clear("accessToken")
-      // localStorage.clear("refreshToken")
-      const dispatched = dispatch(storeLogout())
+      Cookies.remove("Token")
+      dispatch(storeLogout())
       navigate("/")
     }
   }
-  
+
+  useEffect(() => {
+    async function LogoutWhenTokeExpires(params) {
+      if (!Token) {
+        const loggedOut = await logout()
+        if (loggedOut) {
+          dispatch(storeLogout())
+          navigate("/")
+        }
+      }
+    }
+
+    LogoutWhenTokeExpires()
+  },[Token,navigate,dispatch])
 
   return (
     <button onClick={logoutFunc}>

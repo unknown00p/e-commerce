@@ -1,13 +1,15 @@
 import { asyncThunkCreator, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import axios from 'axios';
+// import axiosInstance from './axiosInstences'
+import axios from 'axios'
+import Cookies from "js-cookie"
 
 const initialState = {
-    userData: null,
-    // isLoggedIn: false
+    userData: Cookies.get("Token") || null,
+    isLoggedIn: false,
 }
 
 const loginDetails = createAsyncThunk('auth/login', async (credentials, thunkApi) => {
-    
+
     try {
         const { username, password } = credentials;
         const userLogin = await axios.post("http://localhost:8080/api/v1/users/login", {
@@ -19,29 +21,30 @@ const loginDetails = createAsyncThunk('auth/login', async (credentials, thunkApi
             }, withCredentials: true
         },)
 
-        
+
         return userLogin.data.data
     } catch (error) {
-        console.log(error);
+        return thunkApi.rejectWithValue(error.response.data);
     }
 
 })
 
-const refreshToken = createAsyncThunk("auth/refreshToken",(_,thunkApi)=>{
+const refreshToken = createAsyncThunk("auth/refreshToken", (_, thunkApi) => {
     try {
-       const refresh =  axios.post("http://localhost:8080/api/v1/users/refresh-token",
+        const response = axios.post("http://localhost:8080/api/v1/users/refresh-token",
+            {},
             {
-                headers:{
-                    "Content-Type":"application/json",
+                headers: {
+                    "Content-Type": "application/json",
                 }
             }
         )
 
         console.log(refresh);
 
-        return refresh.data
+        return response.data
     } catch (error) {
-        console.log(error);        
+        return thunkApi.rejectWithValue(error.response.data);
     }
 })
 
@@ -49,16 +52,12 @@ export const authStore = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        logout:(state)=>{
-            localStorage.removeItem("accessToken")
-            localStorage.removeItem("refreshToken")
-            state.isLoggedIn = false;
+        logout: (state) => {
             state.userData = null
+            state.isLoggedIn = false
         },
-
-        currentUser: (state,action)=>{
-            // console.log(action.payload);
-            state.userData = action.payload
+        currentUser: (state, action) => {
+            state.currentUser = action.payload
         }
     },
 
@@ -69,12 +68,9 @@ export const authStore = createSlice({
             })
             .addCase(
                 loginDetails.fulfilled, (state, action) => {
-                    console.log(action.payload);
-                    localStorage.setItem("accessToken",action.payload.accessToken)
-                    localStorage.setItem("refreshToken",action.payload.refreshToken)
-                    localStorage.setItem("user",JSON.stringify(action.payload.user))
+                    Cookies.set("Token","bwtGhOyQu9jmgbc9K6U9iZLSWvwrFftQ6mfYJY04SGPrRToQFzrDyhFVRl5gd7aQJ3L",{expires:1})
                     state.isLoggedIn = false
-                    state.userData = action.payload
+                    state.userData = action.payload.user
                 }
             )
             .addCase(
@@ -82,6 +78,15 @@ export const authStore = createSlice({
                     state.isLoggedIn = false
                 }
             )
+            .addCase(refreshToken.fulfilled, (state, action) => {
+                // Handle successful token refresh if needed
+                console.log('Token refreshed successfully', action.payload);
+            })
+            .addCase(refreshToken.rejected, (state) => {
+                // Handle token refresh failure
+                console.log('Token refresh failed');
+                state.isLoggedIn = false;
+            });
     }
 
 })
