@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { addToCart, getProduct, getUserCart } from '../../FetchFunc/fetchEcommerceApi'
 import Input from '../formCompo/Input'
+import { useDispatch } from 'react-redux'
 
 function Product() {
   const { productId } = useParams()
   const [product, setProduct] = useState(null)
+  const dispatch = useDispatch()
 
   async function addTocart(params) {
 
@@ -20,8 +22,7 @@ function Product() {
       const cart = userCart.data.data.items.find((cart) => cart.product._id === productId)
 
       if (!cart) {
-         const addedCart = await addToCart(productId, quantity)
-         console.log(addedCart);
+         await addToCart(productId, quantity)
       }
     } catch (error) {
       console.log(error);

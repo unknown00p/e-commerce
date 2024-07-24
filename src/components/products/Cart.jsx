@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { getUserCart } from '../../FetchFunc/fetchEcommerceApi';
+import { useSelector } from 'react-redux';
 
 function Cart() {
     const [cartItems, setCartItems] = useState(null)
+    const cartValue = useSelector((state)=> state.cart.CartProduct)
+    const [cartProducts, setCartProducts] = useState([])
     useEffect(() => {
+
         async function cartFunc(params) {
-            const userCart = await getUserCart()
-            setCartItems("")
+            setCartProducts(cartValue)
         }
-
-
+        
         cartFunc()
-    }, [setCartItems])
-
-    // console.log(cartItems);
+    }, [setCartItems,cartValue])
 
     return (
         <div className="px-4 py-6 flex flex-col justify-between">
             <div className="flow-root">
-                <ul className="-my-8 max-h-56 overflow-y-auto">
-                    {cartItems && cartItems.map((item, index) => (
+                <ul className="-my-8 h-full overflow-y-auto">
+                    {cartProducts && cartProducts.map((item, index) => (
                         <li key={item.product._id} className="flex py-6 text-left">
                             <div className="shrink-0 relative w-16 h-16">
                                 <img className="w-full h-full rounded-lg object-cover" src={item.product.mainImage.url} alt={item.product.name} />
@@ -52,13 +52,13 @@ function Cart() {
                 </ul>
             </div>
 
-            <div className="mt-6 border-t bottom-3 absolute border-gray-200 pt-6">
-                <div className='w-full flex flex-shrink-0 items-center justify-between'>
+            <div className="mt-6 border-t absolute left-0 w-full bottom-0 border-gray-200">
+                <div className='w-full flex-shrink-0 items-center justify-between'>
                     <div>
-                        <p className="text-sm text-gray-500">Subtotal</p>
+                        <p className="text-sm px-3 text-gray-500">Subtotal</p>
                     </div>
                     <div className="mt-6">
-                        <button type="button" className="w-full bg-black text-white py-2 rounded-md text-center text-sm font-medium hover:bg-gray-800">
+                        <button type="button" className="w-full bg-black text-white py-2 text-center text-sm font-medium hover:bg-gray-800">
                             View Cart
                         </button>
                     </div>

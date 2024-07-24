@@ -9,6 +9,7 @@ import AddProducts from "./products/AddProducts.jsx";
 import Select from "./formCompo/Select.jsx";
 import Product from "./products/Product.jsx";
 import Category from "./products/Category.jsx";
+import Shop from "./products/Shop.jsx";
 // import AllProducts from "./products/AllProduct.jsx"
 
 export {
@@ -23,5 +24,6 @@ export {
     Select,
     Product,
     Category,
+    Shop
     // AllProducts
 }

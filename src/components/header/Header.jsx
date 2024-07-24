@@ -65,14 +65,22 @@ function Header() {
         setToggleProfile(!toggleProfile)
     }
 
-    function cartToggle(params) {
-        setToggleClass("right-[20rem]")
+    function cartToggle(e) {
+        setToggleClass(prevClass => prevClass === "right-[20rem]" ? "right-[-8.5rem]" : "right-[20rem]")
     }
 
     document.addEventListener("click", (e) => {
         if (toggleProfile && !e.target.closest("#profile")) {
             setToggleProfile(false)
         }
+
+        // if (!e.target.closest("#cart")) {
+        //     setToggleClass("right-[-8.5rem]")
+        // }
+        
+        // if (!e.target.closest("#cart") && !e.target.closest("#allBox")) {
+        //     setToggleClass("right-[-8.5rem]")
+        // }
     })
 
     return (
@@ -120,20 +128,24 @@ function Header() {
                             </div>
                             <div>
                                 <button onClick={cartToggle}>
-                                    <img className='relative' src="/cart.svg" alt="" srcSet="" />
+                                    <img id='cart' className='relative' src="/cart.svg" alt="" srcSet="" />
                                 </button>
 
                             </div>
                         </div>
                         {/* <button onClick={}> */}
-                        <div className={`${toggleClass} top-[0rem] fixed z-50 `}>
-                            <div className="bg-white shadow-lg absolute h-[37rem] z-50 w-80">
+                        <div id='allBox' className={`${toggleClass} top-[0rem] transition-all fixed z-50 `}>
+                            <div className="bg-white shadow-lg absolute h-screen z-50 w-80">
                                 <div className="mx-auto">
                                     <div className="flex items-center bg-black p-4">
-                                        <img src="/dropLeft.svg" alt="" />
+                                        <button onClick={cartToggle}>
+                                            <img id='dropLeft' src="/dropLeft.svg" alt="" />
+                                        </button>
                                         <h1 className="text-xl ml-20 font-semibold text-white text-center">Your Cart</h1>
                                     </div>
+                                    <div>
                                         <Cart />
+                                    </div>
                                 </div>
                             </div>
                         </div>

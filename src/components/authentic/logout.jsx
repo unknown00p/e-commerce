@@ -25,16 +25,12 @@ function Logout() {
   useEffect(() => {
     async function LogoutWhenTokeExpires(params) {
       if (!Token) {
-        const loggedOut = await logout()
-        if (loggedOut) {
-          dispatch(storeLogout())
-          navigate("/")
-        }
+        logoutFunc()        
       }
     }
 
     LogoutWhenTokeExpires()
-  },[Token,navigate,dispatch])
+  },[Token])
 
   return (
     <button onClick={logoutFunc}>
