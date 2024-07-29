@@ -8,7 +8,7 @@ function Protected() {
     // const authenticated = Cookies.get("userToken")
     return (
         <>
-        <div className='overflow-x-hidden'>
+        <div className='p-5'>
             <Header />
             <Outlet />
         </div>

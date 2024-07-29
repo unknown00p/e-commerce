@@ -12,7 +12,7 @@ import LoggedOutHero from './LoggedOutHero'
 
 function Home() {
 
-  const userData = useSelector((state)=> state.auth.userData)
+  const renderToken = useSelector((state)=> state.auth.renderToken)
   const Token = Cookies.get("Token")
   const [products, setProducts] = useState(null)
   const dispatch = useDispatch()
@@ -24,12 +24,12 @@ function Home() {
   useEffect(() => {
     async function userFromLocal() {
       if (!Token) {
-        setToken(userData);
+        setToken(renderToken);
       }
     }
 
     userFromLocal();
-  },[userData]);
+  },[renderToken]);
 
   async function fetch() {
     try {

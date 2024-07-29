@@ -15,8 +15,8 @@ function Profile() {
     }, [])
     
   return (
-    <div>
-      
+    <div className=''>
+      hello
     </div>
   )
 }

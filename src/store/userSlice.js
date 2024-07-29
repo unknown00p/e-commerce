@@ -4,8 +4,9 @@ import axios from 'axios'
 import Cookies from "js-cookie"
 
 const initialState = {
-    userData: Cookies.get("Token") || null,
+    renderToken: Cookies.get("Token") || null,
     isLoggedIn: false,
+    currentUserData: null
 }
 
 const loginDetails = createAsyncThunk('auth/login', async (credentials, thunkApi) => {
@@ -53,11 +54,11 @@ export const authStore = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
-            state.userData = null
+            state.renderToken = null
             state.isLoggedIn = false
         },
-        currentUser: (state, action) => {
-            state.currentUser = action.payload
+        currentUserData: (state, action) => {
+            state.currentUserData = action.payload
         }
     },
 
@@ -70,7 +71,7 @@ export const authStore = createSlice({
                 loginDetails.fulfilled, (state, action) => {
                     Cookies.set("Token","bwtGhOyQu9jmgbc9K6U9iZLSWvwrFftQ6mfYJY04SGPrRToQFzrDyhFVRl5gd7aQJ3L",{expires:1})
                     state.isLoggedIn = false
-                    state.userData = action.payload.user
+                    state.renderToken = action.payload.user
                 }
             )
             .addCase(
@@ -91,6 +92,6 @@ export const authStore = createSlice({
 
 })
 
-export const { logout, currentUser } = authStore.actions
+export const { logout, currentUserData } = authStore.actions
 export { loginDetails,refreshToken }
 export default authStore.reducer

@@ -1,0 +1,7 @@
+1: make menu section where you show your items and when clicking on the item redirect to oreder online section where the chosen item is selected and you can order it
+
+2: when going directly to order online show items based on most sales and allow them to add there delivery location
+
+3: in profile section if user is admin give him a button that onclick redirect him to admin pannel where admin can (add edit or delete) the items from database
+
+4: make a user profile section

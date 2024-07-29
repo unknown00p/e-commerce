@@ -29,22 +29,9 @@ function Cart() {
                                     <div>
                                         <h3 className="text-sm font-medium text-gray-900">{item.product.name}</h3>
                                     </div>
-                                    <button type="button" className="text-gray-500 hover:text-gray-900" onClick={() => handleRemoveFromCart(item)}>
-                                        <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                    </button>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <p className="text-sm font-medium text-gray-900">₹{item.product.price}</p>
-                                    <div className="flex items-center space-x-2">
-                                        <input
-                                            type="number"
-                                            className="w-12 p-1 border rounded text-gray-900"
-                                            defaultValue={1}
-                                            onChange={(e) => handleQuantityChange(e, item)}
-                                        />
-                                    </div>
                                 </div>
                             </div>
                         </li>

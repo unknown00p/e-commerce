@@ -8,6 +8,10 @@ export default {
     extend: {
       fontFamily:{
         playwriteRegular: ["playwrite"]
+      },
+      backgroundImage: {
+        'hero-pattern': "url('food1.jpg')",
+        // 'footer-texture': "url('/img/footer-texture.png')"
       }
     },
   },
