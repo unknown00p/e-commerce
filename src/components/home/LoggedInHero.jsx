@@ -19,7 +19,7 @@ function LoggedInHero() {
                         Discover the Secrets of Indian Hidden Delicacies
                         </h1>
                         <p className="mt-6 text-lg text-white md:text-xl">
-                            <Button text="VISIT MENU"/>
+                            <Button text="VISIT MENU" buttonClass="bg-[#8e8f9d5e] text-[#ffffff] px-4 py-2 rounded-md" type="submit"/>
                         </p>
                     </div>
                 </div>

@@ -9,7 +9,8 @@ const CartStore = createSlice({
     initialState,
     reducers: {
         addProductsToCart: (state, action) => {
-            state.CartProduct = action.payload.payload
+            // console.log(action.payload);
+            state.CartProduct = action.payload
         },
         removeProductFromCart: (state, action) => {
             state.CartProduct = null

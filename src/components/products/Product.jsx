@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { addToCart, getProduct, getUserCart } from '../../FetchFunc/fetchEcommerceApi'
+import { addToCart, getUserCart } from '../../FetchFunc/fetchCart'
+import { getProduct } from '../../FetchFunc/fetchProducts'
 import Input from '../formCompo/Input'
 import { useDispatch } from 'react-redux'
 

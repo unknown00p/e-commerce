@@ -15,7 +15,7 @@ function Header() {
   const [toggleProfile, setToggleProfile] = useState(false)
   const renderToken = useSelector((state) => state.auth.renderToken)
   const userData = useSelector((state) => state.auth.currentUserData)
-  console.log(userData);
+  // console.log(userData);
   const Token = Cookies.get("Token")
   const [token, setToken] = useState(Token)
   const navigate = useNavigate()
@@ -73,7 +73,7 @@ function Header() {
   }
 
   document.addEventListener("click", (e) => {
-    if (toggleProfile && !e.target.closest("#profile")) {
+    if (toggleProfile && !e.target.closest("#profile-icon")) {
       setToggleProfile(false)
     }
 
@@ -117,13 +117,13 @@ function Header() {
           <div className=''>
             <div className='flex gap-4 items-center'>
 
-              <div id='profile'>
+              <div>
 
-                {userData && userData.role == "ADMIN" &&
-                  <button id='profile-icon' onClick={toggleProfileInfo} className='flex relative items-center gap-1 ml-[67px]'>
-                    {/* <Profile /> */}
-                    <img src="/profile.svg" alt="" srcSet="" />
-                  </button>}
+
+                <button id='profile-icon' onClick={toggleProfileInfo} className='flex relative items-center gap-1 ml-[67px]'>
+                  {/* <Profile /> */}
+                  <img src="/profile.svg" alt="" srcSet="" />
+                </button>
 
                 {toggleProfile && <div className='flex absolute flex-col ml-[-18px] gap-4 border-[1px] border-[#4e4e4e] w-[8rem] bg-slate-50 mt-2 p-[0.5rem] z-50'>
                   {/* <div>lol</div> */}

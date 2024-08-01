@@ -1,22 +1,28 @@
 import React,{useEffect,useState} from 'react'
-import { eCommerceProfile } from '../../FetchFunc/fetchEcommerceApi'
+import { eCommerceProfile } from '../../FetchFunc/fetchEcommerceProfile'
 
 function Profile() {
-    const [profile, setProfile] = useState("")
+    const [profileData, setProfileData] = useState("")
 
     async function getProfile(params) {
       const profile = await eCommerceProfile()
-      // console.log(profile.data.data);
-      setProfile(profile?.data.data)
+      setProfileData(profile?.data.data)
     }
 
     useEffect(() => {
         getProfile()
     }, [])
+
+    console.log(profileData);
     
   return (
     <div className=''>
-      hello
+      { profileData &&
+      <>
+        <div>{profileData.firstName}</div>
+        <div>{profileData.lastName}</div>
+      </>
+      }
     </div>
   )
 }

@@ -5,10 +5,10 @@ import { useForm } from "react-hook-form";
 import Button from "../formCompo/Button";
 import Select from "../formCompo/Select";
 import TextArea from "./TextArea";
-import { createProducts, getAllProducts } from "../../FetchFunc/fetchEcommerceApi";
+import { createProducts, getAllProducts } from "../../FetchFunc/fetchProducts";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { products } from "../../store/productSlice";
+import { allProducts } from "../../store/productSlice";
 
 function AddProducts() {
   const { handleSubmit, register, control, setValue } = useForm();

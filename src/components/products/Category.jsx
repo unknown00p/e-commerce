@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getCategories } from '../../FetchFunc/fetchEcommerceApi'
+import { getCategories } from '../../FetchFunc/fetchCategory'
 
 function Category() {
 
