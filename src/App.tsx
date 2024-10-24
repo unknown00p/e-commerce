@@ -3,10 +3,10 @@ import { useState } from 'react'
 // import image2 from './assets/image2.jpg'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <div className='max-w-[1440px] mx-auto'>
+
       <header className='hidden lg:flex items-center justify-between px-[24px] pt-[9px] bg-[#252B42] text-[#ffffff]'>
         <div className='flex items-center h-[46px]'>
 
@@ -93,8 +93,7 @@ function App() {
         </div>
       </main>
 
-      <div className='py-[80px] max-w-[1124px] sm:w-full w-[333px] m-auto'>
-
+      <div className='my-[80px] max-w-[1124px] md:w-full w-[325px] m-auto md:px-10 lg:px-0'>
         <div>
           <p className='text-[24px] font-bold text-[#252B42] text-center'>EDITOR'S PICK</p>
           <p className='text-sm text-[#737373] text-center'>
@@ -103,10 +102,52 @@ function App() {
           </p>
         </div>
 
-        <div>
-          
+        <div className='mt-[48px] sm:flex'>
+
+          <div className='bg-image8 w-full relative bg-cover items-center h-[500px]'>
+            <button className='ml-[-1px] absolute bottom-[21px] w-[170px] h-[48px] bg-white font-semibold text-lg'>MEN</button>
+          </div>
+
+          <div className='bg-image6 w-full sm:w-[510px] relative bg-cover bg-center mt-[30px] sm:mt-[0px] items-center h-[500px] sm:ml-[30px] ml[0px]'>
+            <button className='ml-[-1px] absolute bottom-[21px] lg:w-[170px] w-[170px] md:w-28 h-[48px] bg-white font-semibold text-lg'>WOMEN</button>
+          </div>
+
+          <div className='sm:ml-[30px] ml-0'>
+            <div className='bg-image4 w-full sm:w-[240px] relative bg-cover bg-center mt-[30px] sm:mt-[0px] items-center h-[242px]'>
+              <button className='ml-[-1px] absolute bottom-[21px] w-[170px] h-[48px] bg-white font-semibold text-lg'>KID</button>
+            </div>
+
+            <div className='bg-image9 w-full sm:w-[240px] relative bg-cover bg-center mt-[30px] sm:mt-[16px] items-center h-[242px]'>
+              <button className='ml-[-1px] absolute bottom-[21px] w-[170px] h-[48px] bg-white font-semibold text-lg'>ACCESSORIES</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div className='md:max-w-[1124px] my-[80px] mx-auto max-w-[325px]'>
+        <div className='flex flex-col items-center gap-[10px]'>
+          <p className='text-[20px] text-[#737373]'>Featured Products</p>
+          <p className='text-[24px] font-bold text-[#252B42]'>BESTSELLER PRODUCTS</p>
+          <p className='text-sm text-[#737373]'>Problems trying to resolve the conflict between </p>
         </div>
 
+        <div className='flex flex-col items-center'>
+          <div className='grid sm:grid-cols-2 lg:grid-cols-4 gap-[30px]'>
+            <p className='w-full'>image1</p>
+            <p className='w-full'>image2</p>
+            <p className='w-full'>image3</p>
+            <p className='w-full'>image4</p>
+          </div>
+
+          <div className='grid sm:grid-cols-2 lg:grid-cols-4'>
+            <p>image5</p>
+            <p>image6</p>
+            <p>image7</p>
+            <p>image8</p>
+          </div>
+          
+        </div>
       </div>
 
     </div>
