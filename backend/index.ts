@@ -1,12 +1,16 @@
-const express = require('express')
+const { Pool } = require('pg')
 
-const app = express()
-const port = 4000
-
-app.get('/', (req, res) => {
-    res.send('hello express typescript')
+const pool = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'ecommerce',
+    password: 'postgre008899',
+    port: 5432,
 })
 
-app.listen(port, () => {
-    console.log(`Express is listening at http://localhost:${port}`)
+pool.connect()
+    .then((client: import('pg').PoolClient)=> {
+    console.log(`Connected to PostgreSQL database!`)
+    client.release()
 })
+    .catch ((err: Error) => { console.log(`got error while connecting to db: ${err}`) })

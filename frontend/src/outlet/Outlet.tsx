@@ -6,7 +6,6 @@ import Footer from '../components/Footer'
 function OutletComp() {
     return (
         <div className='max-w-[1440px] mx-auto'>
-            lol
             <Navbar />
             <Outlet />
             <Footer />
