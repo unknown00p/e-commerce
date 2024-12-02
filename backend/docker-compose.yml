@@ -1,0 +1,31 @@
+version: '3'
+services:
+  app:
+    build: .
+    container_name: eCommerce
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres008899@db:5432/ecommerce
+      - NODE_ENV=development
+      - PORT=4000
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    command: npm run start
+
+  db:
+    image: postgres:13-alpine
+    container_name: eCommerceDB
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres008899
+      POSTGRES_DB: ecommerce
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
